@@ -1,0 +1,8 @@
+Chapter 4 notes
+Error: TemplateDoesNotExist at /
+index.html, 
+Fix.  Change collections to collection in installed apps.
+
+Linking Static Files:  When linking static files such as images use  {% static 'FILELOCATION/FILENAME.TYPE' %}
+
+Chapter 5 notes

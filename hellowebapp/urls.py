@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from collection import views #Import views, chapter 4
+
 urlpatterns = [
+    url(r'^$', views.index, name='home'), #url, includes regex, calls views.index, is named 'home'.  Chapter 4
     url(r'^admin/', admin.site.urls),
 ]
