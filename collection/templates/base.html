@@ -33,5 +33,18 @@
         </header>
        {% block content %}{% endblock content %} <!--Chapter 4-->
        {% block footer %}{% endblock footer %} <!--Chapter 4-->
+
+{% if user.is_authenticated %}
+<li>
+    <a href="{% url 'auth_logout' %}">Logout</a>
+</li>
+{% else %}
+<li>
+    <a href="{% url 'auth_login' %}">Login</a>
+</li>
+<li>
+    <a href="{% url 'registration_register' %}">Register</a>
+</li>
+{% endif %}
     </body>
 </html>

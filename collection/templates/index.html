@@ -22,7 +22,8 @@
 
     <h2> Chapter 7 </h2> <!--I didn't delete what wheve already worked on so I added new title.-->
     {% for project in projects %} <!-- Changed thing and things to project and projects  -->
-    <h3>{{ project.name }}</h3> <!-- Changed thing to project-->
+    <h3>
+      <a href="{% url 'project_detail' slug=project.slug %}"> {{ project.name }} </a> </h3> <!-- added link to thing_detail.html.  Chapter 8.-->
     <p>{{ project.description }}</p> <!-- Changed thing to project-->
     {% endfor %}
 
