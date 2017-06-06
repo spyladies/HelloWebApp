@@ -1,0 +1,37 @@
+
+{% load staticfiles %} <!--adds static files such as css.  Added to index.html in Chapter 4-->
+<!doctype html>
+<!--html common to all pages of our website, taken from index.html.  Chapter 5-->
+<html>
+    <head>
+        <title>
+             <!-- we want to override page titles.  This blocks off sections that will change from page to page.  Chapter 5-->
+             {% block title %}
+               My Hello Web App Project
+             {% endblock title %}
+
+        </title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        {% block header %}{% endblock header %}
+    </head>
+    <body>
+      <header> <!-- navagation links to other pages in app. Chapter 5-->
+            <h1>Hello Web App</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'about' %}">About</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact' %}">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+       {% block content %}{% endblock content %} <!--Chapter 4-->
+       {% block footer %}{% endblock footer %} <!--Chapter 4-->
+    </body>
+</html>

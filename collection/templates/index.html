@@ -1,14 +1,25 @@
 
-{% load staticfiles %} <!__adds static files such as css.  Chapter 4__>
-<!doctype html>
-<!__html for first page of Webapp, Chapter 4__>
-<html>
-    <head>
-        <title>My Hello Web App Project</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}" /> <!__links our css page.  Chapter 4__>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-        <p>I am a basic website.</p>
-    </body>
-</html>
+
+<!--html for first page of Webapp, Chapter 4, changed to extend base chapter 5-->
+{% extends 'base.html' %}
+{% load humanize %} <!--loads django library humanize. Also added in installed apps in settings.py. Chapter 5>
+{% block title %}
+    Homepage - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+    <h1>Hello World!</h1>
+    <p>Number: {{number}} <p> <!--display variable from views. Chapter 5-->
+    <p>If statement: Does number exist? {% if number %}Number exists!{% endif %} </p> <!--if statement with number.  Chapter 5.-->
+    <p>If statement: There are six dogs! {% if number == 6 %} True {% else %}  False {% endif %} </p><!--another if statement.  Chapter 5-->
+    <p>Pluralize: There are {{ number }} dog{{ number|pluralize }}!</p> <!--Pluralize.  Chapter 5-->
+    <p>Pluralize with es: There are {{ number }} walrus{{ number|pluralize:"es" }}! </p> <!--add plural suffix.  Chapter 5-->
+    <p>'Humanize' numbers: There are {{ number|apnumber }} dogs!</p> <!--Humanize apnumber spells out numbers 1-9.  Chapter 5-->
+    <p>We are {{ thing }}</p> <!--uses variable string passed from views.  Chapter 5-->
+    <p>Slugify: We are {{ thing|slugify}}</p><!--Chapter 5-->
+    <p>Title case: We are {{ thing|title }}</p><!--Chapter 5-->
+    <p>Truncate: We are {{ thing|truncatewords:1 }}<!--Chapter 5-->
+
+
+
+{% endblock content %}
