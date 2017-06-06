@@ -9,4 +9,5 @@
 {% block content %}
     <h1>{{ project.name }}</h1> <!--changed thing to project-->
     <p>{{ project.description }}</p> <!--changed thing to project-->
+    <a href="{% url 'edit_project' slug=project.slug %}">Edit me!</> <!--link to edit_project.  Chapter 9 -->
 {% endblock content %}
