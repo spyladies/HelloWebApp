@@ -2,13 +2,13 @@
 
 <!--html for first page of Webapp, Chapter 4, changed to extend base chapter 5-->
 {% extends 'base.html' %}
-{% load humanize %} <!--loads django library humanize. Also added in installed apps in settings.py. Chapter 5>
+{% load humanize %} <!--loads django library humanize. Also added in installed apps in settings.py. Chapter 5-->
 {% block title %}
     Homepage - {{ block.super }}
 {% endblock title %}
 
 {% block content %}
-    <h1>Hello World!</h1>
+    <h1>Chapter 5</h1>
     <p>Number: {{number}} <p> <!--display variable from views. Chapter 5-->
     <p>If statement: Does number exist? {% if number %}Number exists!{% endif %} </p> <!--if statement with number.  Chapter 5.-->
     <p>If statement: There are six dogs! {% if number == 6 %} True {% else %}  False {% endif %} </p><!--another if statement.  Chapter 5-->
@@ -19,6 +19,14 @@
     <p>Slugify: We are {{ thing|slugify}}</p><!--Chapter 5-->
     <p>Title case: We are {{ thing|title }}</p><!--Chapter 5-->
     <p>Truncate: We are {{ thing|truncatewords:1 }}<!--Chapter 5-->
+
+    <h2> Chapter 7 </h2> <!--I didn't delete what wheve already worked on so I added new title.-->
+    {% for project in projects %} <!-- Changed thing and things to project and projects  -->
+    <h3>{{ project.name }}</h3> <!-- Changed thing to project-->
+    <p>{{ project.description }}</p> <!-- Changed thing to project-->
+    {% endfor %}
+
+
 
 
 
