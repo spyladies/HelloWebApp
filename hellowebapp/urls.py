@@ -26,7 +26,9 @@ from django.contrib.auth.views import (
 )
 from django.conf.urls import url, include #include added chapter 10
 from django.contrib import admin
-from django.views.generic import TemplateView #imports Django's TemplateView.  Chapter 4
+from django.views.generic import (TemplateView,
+    RedirectView,
+) #imports Django's TemplateView.  Chapter 4.  Redirect view added Chapter 12.
 from collection import views #Import views, chapter 4
 
 urlpatterns = [
@@ -37,6 +39,7 @@ urlpatterns = [
     url(r'^contact/$', #url for contact.html.  Chapter 5
         TemplateView.as_view(template_name='contact.html'),
         name='contact'),
+    url(r'^projects/$', RedirectView.as_view(pattern_name='browse', permanent=True)), #Redirect, added Chapter 12
     url(r'^projects/(?P<slug>[-\w]+)/$', views.project_detail,
         name='project_detail'), #url for project pages.  Changed thing to project.  Chapter 8
     url(r'^projects/(?P<slug>[-\w]+)/edit/$', #url to edit projects.  Changed thing to project.  Chapter 8.
@@ -63,7 +66,13 @@ urlpatterns = [
         {'template_name':
         'registration/password_reset_complete.html'},
         name="password_reset_complete"),
-    url(r'^accounts/register/$', #Added Chapter 11
+    url(r'^browse/$', RedirectView.as_view(pattern_name='browse', permanent=True)), #Redirect from browse.  Added Chapter 12
+# our new browse flow Added Chapter 12
+    url(r'^browse/name/$',#Browse list. Added Chapter 12
+        views.browse_by_name, name='browse'),
+    url(r'^browse/name/(?P<initial>[-\w]+)/$', #Browse by first letter Added Chapter 12
+        views.browse_by_name, name='browse_by_name'),
+    url(r'^accounts/register/$', #Password Reset Urls Added Chapter 11
         MyRegistrationView.as_view(),
         name='registration_register'),
     url(r'^accounts/create_project/$', views.create_project, #added chapter 11

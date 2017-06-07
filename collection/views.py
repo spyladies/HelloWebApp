@@ -79,3 +79,15 @@ def create_project(request):
     return render(request, 'projects/create_project.html', {
         'form': form,
     })
+
+def browse_by_name(request, initial=None): #browsing, added chapter 11. Change thing to project.
+    if initial:
+        projects = Project.objects.filter(name__istartswith=initial)
+        projects = projects.order_by('name')
+    else:
+        projects = Project.objects.all().order_by('name')
+
+    return render(request, 'search/search.html', {
+        'projects': projects,
+        'initial': initial,
+    })
