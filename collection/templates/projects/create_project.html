@@ -1,0 +1,14 @@
+<!--added chapter 11-->
+{% extends 'base.html' %}
+{% block title %}
+    Create a Project - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+    <h1>Create a Project</h1>
+    <form role="form" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+{% endblock %}P

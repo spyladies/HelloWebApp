@@ -14,6 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
+# added chapter 11
+from collection.backends import MyRegistrationView #Added Chapter 11
+
 # added chapter 10
 from django.contrib.auth.views import (
    password_reset,
@@ -60,6 +63,11 @@ urlpatterns = [
         {'template_name':
         'registration/password_reset_complete.html'},
         name="password_reset_complete"),
+    url(r'^accounts/register/$', #Added Chapter 11
+        MyRegistrationView.as_view(),
+        name='registration_register'),
+    url(r'^accounts/create_project/$', views.create_project, #added chapter 11
+        name='registration_create_project'),
     url(r'^accounts/', include('registration.backends.simple.urls')), #added chapter 10.
     url(r'^admin/', admin.site.urls),
 ]

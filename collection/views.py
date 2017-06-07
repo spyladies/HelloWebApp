@@ -1,6 +1,9 @@
+from django.template.defaultfilters import slugify #added chapter 11
 from django.shortcuts import render, redirect #added redirect in Chapter 9.
 from collection.forms import ProjectForm  #changed Thing to Project.  Chapter 9.
 from collection.models import Project #import project from collection.  Chapter 7.
+from django.contrib.auth.decorators import login_required #import login_required.  Chapter 11
+from django.http import Http404 #Chapter 11
 
 # Create your views here.
 def index(request): #defines index to return rendered index.html.  Chapter 4.
@@ -18,9 +21,13 @@ def project_detail(request, slug): #view added chapter 8, changed from thing_det
 
 
 # Added Chapter 9.
+@login_required
 def edit_project(request, slug): #changed thing to project
     # grab the object
     project = Project.objects.get(slug=slug)
+       # make sure the logged in user is the owner of the project.  Change thing to project. Chapter 11.
+    if project.user != request.user:
+        raise Http404
     # set the form we're using
     form_class = ProjectForm
 
@@ -37,8 +44,38 @@ def edit_project(request, slug): #changed thing to project
     else:
         form = form_class(instance=project)
 
-    # and render the template.  thing to project.  
+    # and render the template.  thing to project.
     return render(request, 'projects/edit_project.html', {
         'project': project,
+        'form': form,
+    })
+# Added chapter 11.  Renamed it create_project
+def create_project(request):
+    form_class = ProjectForm #changed Thing to Project
+
+    # if we're coming from a submitted form, do this
+    if request.method == 'POST':
+        # grab the data from the submitted form and
+        # apply to the form
+        form = form_class(request.POST)
+        if form.is_valid():
+            # create an instance but don't save yet
+            project = form.save(commit=False)
+
+            # set the additional details
+            project.user = request.user
+            project.slug = slugify(project.name)
+
+            # save the object
+            project.save()
+
+            # redirect to our newly created thing(project)
+            return redirect('project_detail', slug=project.slug)
+
+    # otherwise just create the form
+    else:
+        form = form_class()
+
+    return render(request, 'projects/create_project.html', {
         'form': form,
     })
